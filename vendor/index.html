@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <style type="text/css">
+    <!--
+        .station {padding:10px;}
+    -->
+    </style>
+  </head>
+  <body>
+  <script type="text/javascript">
+    $(function() {
+        $("#station").on("keyup", function(){
+            var input = $("#station").val();
+            $.ajax({
+                type: 'GET',
+                url: './stations/' + input,
+                dataType: 'json'
+            })
+            .done(function(result) {
+                $('#table').empty();
+                var stations = result['hits'];
+                $.each(stations, function(index, station) {
+                    $('#table').append('<hr><div class="station">' + station.name_ja + '</br>' + station.address_ja + '</div>');
+                });
+            })
+            .fail(function(){
+            })
+        })
+    });
+    </script>
+    
+    <input type='text' id="station" class="form-control"  size="40" maxlength="256" placeholder="駅名">
+    
+    <div id="table"></div>
+    {% if message %}
+        <p>{{message}}</p>
+    {% endif %}
+  </body>
+</html>

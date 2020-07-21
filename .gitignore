@@ -1,0 +1,4 @@
+.chalice/*
+__pycache__
+vendor/*
+!vendor/index.html
